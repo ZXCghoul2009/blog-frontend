@@ -6,10 +6,22 @@ import { useState } from 'react';
 export const BlogItem = ({
     title,
     description,
-    likeCount,
-    likePosts,
-    liked
+
 }) => {
+
+    const [liked, setLiked] = useState(false)
+    const [likeCount, setLikeCount] = useState(0)
+
+    const likePosts = () => {
+        setLiked((v)=> !v)
+        if (!liked) {
+            setLikeCount((v) => v + 1)
+        } else {
+            setLikeCount((v) => v - 1)
+        }
+
+        }
+
 
     const likedFill = liked ? 'crimson' : 'grey';
 
