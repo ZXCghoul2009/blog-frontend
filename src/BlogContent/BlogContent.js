@@ -6,7 +6,7 @@ import {Component, useState} from "react";
 export class BlogContent extends Component {
 
     state = {
-        blogArr: posts
+        blogArr: JSON.parse(localStorage.getItem("blogPosts")) || posts
     };
 
     likePosts = (pos) => {
@@ -18,12 +18,12 @@ export class BlogContent extends Component {
         } else temp[pos].likeCount--;
 
 
-
-
-
         this.setState({
             blogArr: temp, like
         })
+
+        localStorage.setItem("blogPosts", JSON.stringify(temp),)
+        localStorage.setItem("blogPosts", JSON.stringify(like))
     }
 
 
