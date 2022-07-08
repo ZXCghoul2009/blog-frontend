@@ -1,35 +1,32 @@
 import './BlogContent.css';
+import {Spin} from "antd"
 import {posts} from "../DataProject/projectData";
 import {BlogItem} from "./components/BlogItem";
-import {Component} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
+import PostService from "../API/PostService";
+import Loader from "./UI/Loader/Loader";
 
-export class BlogContent extends Component {
+export const BlogContent = () =>  {
 
-    state = {
-        blogArr: [],
-    };
+   const [posts, setPosts] = useState([]);
+   const [isPostLoading, setIsPostLoading] = useState(false)
 
-
-    componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/users/1/posts')
-            .then((response) => {
-                this.setState({
-                    blogArr: response.data
-                })
-            })
-
-            .catch((err) => {
-                console.log(err)
-            })
-    }
+   useEffect(() => {
+       fetchPosts();
+   }, [])
 
 
+   async function fetchPosts() {
+       setIsPostLoading(true);
+           const posts = await PostService.getAll();
+           setPosts(posts)
+           setIsPostLoading(false);
+
+   }
 
 
-    render() {
-
-        const blogPosts = this.state.blogArr.map((item, pos) => {
+        const blogPosts = posts.map((item) => {
             return (
                 <BlogItem
                     key={item.id}
@@ -40,11 +37,11 @@ export class BlogContent extends Component {
         })
         return (
             <>
-                <h1>Blog</h1>
-                <div className="posts">
-                {blogPosts}
-                </div>
+                {isPostLoading ? <Loader/> :
+                    <div className="posts">
+                    {blogPosts}
+                </div>}
+
         </>)
 
     }
-}

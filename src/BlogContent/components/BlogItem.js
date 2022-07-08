@@ -30,7 +30,7 @@ export const BlogItem = ({
             <h2>{title}</h2>
             <p>{description}</p>
             <div>
-                <button onClick={likePosts}>
+                <button  onClick={likePosts}>
                     <FavoriteIcon style={{fill:likedFill}}/>
                 </button>
                 {likeCount}
