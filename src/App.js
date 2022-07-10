@@ -1,22 +1,32 @@
 
 import './App.css';
 import {Header} from "./Header/Header";
-import {BlogContent} from "./BlogContent/BlogContent";
+import {BlogContent} from "./components/BlogContent";
 import {Footer} from "./Footer/Footer";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import LoginPage from "./LoginPage/LoginPage";
 
 function App() {
+
   return (
-      <div className="App">
-        <Header/>
+      <Router>
+          <div className="App">
+              <Header/>
 
-        <main>
-          <BlogContent/>
-        </main>
+              <main>
+                  <Routes>
+                      <Route exact path="/" element={<BlogContent/>}/>
+                  </Routes>
 
-          <Footer/>
+                  <Routes>
+                      <Route exact path="/login" element={<LoginPage/>}/>
+                  </Routes>
+              </main>
 
-      </div>
+              <Footer/>
 
+          </div>
+      </Router>
   );
 }
 

@@ -1,29 +1,23 @@
 import './BlogContent.css';
-import {Spin} from "antd"
-import {posts} from "../DataProject/projectData";
-import {BlogItem} from "./components/BlogItem";
+
+import {BlogItem} from "./BlogContent/BlogItem";
 import {useState, useEffect} from "react";
-import axios from "axios";
+import {useFetching} from "../hooks/useFetching.js"
 import PostService from "../API/PostService";
 import Loader from "./UI/Loader/Loader";
 
 export const BlogContent = () =>  {
 
    const [posts, setPosts] = useState([]);
-   const [isPostLoading, setIsPostLoading] = useState(false)
+   const [fetchPosts, isPostsLoading, postError] = useFetching( async  () =>{
+       const posts = await PostService.getAll();
+       setPosts(posts)
+   })
 
    useEffect(() => {
        fetchPosts();
    }, [])
 
-
-   async function fetchPosts() {
-       setIsPostLoading(true);
-           const posts = await PostService.getAll();
-           setPosts(posts)
-           setIsPostLoading(false);
-
-   }
 
 
         const blogPosts = posts.map((item) => {
@@ -37,7 +31,8 @@ export const BlogContent = () =>  {
         })
         return (
             <>
-                {isPostLoading ? <Loader/> :
+                {postError && <h1>Error: ${postError}</h1>}
+                {isPostsLoading ? <Loader/> :
                     <div className="posts">
                     {blogPosts}
                 </div>}

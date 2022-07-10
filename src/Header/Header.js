@@ -1,12 +1,17 @@
 import './Header.css';
+import {Link} from 'react-router-dom'
+import AddNewPostButton from "../components/UI/Buttons/AddNewPostButton";
 
 export const Header = () => {
     return (
         <header>
+
             <nav>
-                <a hreaf="#first">Home</a>
-                <a hreaf="#second">About</a>
-                <a hreaf="#third">Contact</a>
+                <Link to="/"><AddNewPostButton/></Link>
+
+                <Link to="/">Home</Link>
+                <Link to="/login">Login</Link>
+
             </nav>
         </header>
     )
