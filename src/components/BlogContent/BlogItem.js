@@ -6,19 +6,15 @@ import { useState } from 'react';
 export const BlogItem = ({
     title,
     description,
+    likeCount,
+    duration
 
 }) => {
 
     const [liked, setLiked] = useState(false)
-    const [likeCount, setLikeCount] = useState(0)
 
     const likePosts = () => {
         setLiked((v)=> !v)
-        if (!liked) {
-            setLikeCount((v) => v + 1)
-        } else {
-            setLikeCount((v) => v - 1)
-        }
 
         }
 
@@ -29,6 +25,7 @@ export const BlogItem = ({
         <div className="post">
             <h2>{title}</h2>
             <p>{description}</p>
+            <p>пост был создан: {duration}</p>
             <div>
                 <button  onClick={likePosts}>
                     <FavoriteIcon style={{fill:likedFill}}/>

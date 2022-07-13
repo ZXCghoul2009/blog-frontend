@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class PostService {
     static async getAll() {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/users/1/posts')
+            const response = await axios.get('http://localhost:8081/api/posts/')
             return response.data
 
     }

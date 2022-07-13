@@ -38,7 +38,7 @@ input, button, textarea {
 main {
   padding: 10px;
   min-height: calc(100vh - 100px);
-  width: 50%;
+  width: auto;
   margin: 0 auto;
   display: flex;
   align-items: center;

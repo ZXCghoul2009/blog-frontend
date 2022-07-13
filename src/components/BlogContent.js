@@ -24,8 +24,11 @@ export const BlogContent = () =>  {
             return (
                 <BlogItem
                     key={item.id}
-                    title={item.title}
+                    title={item.postName}
                     description={item.body}
+                    likeCount = {item.voteCount}
+                    liked = {item.upVote}
+                    duration = {item.duration}
                 />
             )
         })
