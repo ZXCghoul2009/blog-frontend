@@ -8,6 +8,8 @@ import {Link} from "react-router-dom";
 
 export const SignUp = () => {
 
+    const [passwordTittle, setPasswordTittle] = useState('')
+
     const usernameInputRef = useRef();
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
@@ -70,6 +72,7 @@ export const SignUp = () => {
         };
     }
     return(
+        <section className={classes.auth}>
         <form onSubmit={submitHandler}>
             <h1>Sign Up</h1>
             <div className={classes.control}>
@@ -78,9 +81,9 @@ export const SignUp = () => {
                 <label htmlFor='email'>Your Email</label>
                 <input type='email' id='email' required ref={emailInputRef} />
                 <label htmlFor='password'>Your Password</label>
-                <input type='password' id='password' required ref={passwordInputRef}/>
+                <input type='password' id='password' placeholder="Must be at least 6 symbols " minLength={6} required ref={passwordInputRef}/>
                 <label htmlFor='password'>Confirm your password</label>
-                <input type='password' id='password' required />
+                <input type='password' id='password' minLength={6} required  />
             </div>
             <div className={classes.actions}>
                 {!isLoading && <button>Create Account</button>}
@@ -90,11 +93,12 @@ export const SignUp = () => {
                     className={classes.toggle}
                     onClick={switchAuthModeHandler}
                 >
-                    <Link to="/login">
+                    <Link to="/login" className={classes.toggle}>
                         Login with existing account
                     </Link>
                 </button>
             </div>
         </form>
+        </section>
     )
 }

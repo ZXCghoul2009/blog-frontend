@@ -6,6 +6,10 @@ import {useContext} from "react";
 const MainNavigation = () => {
   const authCtx = useContext(AuthContext)
 
+  const logoutHandler = () => {
+      authCtx.logout();
+  };
+
   const isLoggedIn = authCtx.isLoggedIn
 
   return (
@@ -17,7 +21,7 @@ const MainNavigation = () => {
         <ul>
             {!isLoggedIn &&
             (<li>
-                <Link to='/auth'>Login</Link>
+                <Link to='/login'>Login</Link>
             </li>)}
             {isLoggedIn &&
             (<li>
@@ -25,7 +29,7 @@ const MainNavigation = () => {
             </li>)}
             {isLoggedIn &&
             (<li>
-                <button>Logout</button>
+                <button onClick={logoutHandler}>Logout</button>
             </li>)}
 
         </ul>

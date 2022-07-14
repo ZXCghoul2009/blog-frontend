@@ -1,4 +1,4 @@
-
+import {useContext} from "react";
 import './App.css';
 import {Header} from "./Header/Header";
 import {BlogContent} from "./components/BlogContent";
@@ -8,8 +8,11 @@ import {AddNewPostPage} from "./components/AddNewPostPage/AddNewPostPage";
 import AuthPage from "./pages/AuthPage";
 import UserProfile from "./components/Profile/UserProfile";
 import Layout from "./components/Layout/Layout";
+import SignUpPage from "./pages/SignUpPage";
+import AuthContext from "./store/auth-context";
 
 function App() {
+    const authCtx = useContext(AuthContext)
 
   return (
           <div className="App">
@@ -21,10 +24,21 @@ function App() {
 
                           <Route exact path="/" element={<BlogContent/>}/>
 
+                          {!authCtx.isLoggedIn && (
+                              <Route exact path="/login" element={<AuthPage/>}/>
 
-                          <Route exact path="/auth" element={<AuthPage/>}/>
+                          )}
 
-                          <Route exact path="/profile" element={<UserProfile/>}/>
+                          {!authCtx.isLoggedIn && (
+                              <Route exact path="/signup" element={<SignUpPage/>}/>
+
+                          )}
+
+                          {authCtx.isLoggedIn && (
+                              <Route exact path="/profile" element={<UserProfile/>}/>
+                          )}
+                          <Route exact path="*" element={<BlogContent/>}/>
+
                       </Routes>
               </main>
               <Footer/>

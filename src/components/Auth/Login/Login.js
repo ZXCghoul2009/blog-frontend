@@ -1,5 +1,5 @@
 import {useState, useRef, useContext} from 'react';
-
+import { useNavigate } from "react-router-dom";
 import classes from '../AuthForm.module.css'
 import Loader from "../../UI/Loader/Loader";
 import AuthContext from "../../../store/auth-context";
@@ -8,9 +8,10 @@ import {Link} from "react-router-dom";
 
 export const Login = () => {
 
-    const usernameInputRef = useRef();
-    const emailInputRef = useRef();
-    const passwordInputRef = useRef();
+    const usernameInputRef = useRef('');
+    const passwordInputRef = useRef('');
+
+    const navigate = useNavigate();
 
     const authCtx = useContext(AuthContext)
 
@@ -25,7 +26,6 @@ export const Login = () => {
         event.preventDefault();
 
         const enteredUserName = usernameInputRef.current.value;
-        const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
 
@@ -34,7 +34,7 @@ export const Login = () => {
         {
             isLogin &&
             fetch(
-                'http://localhost:8081/api/auth/login',
+                'http://localhost:8080/api/auth/login',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -49,7 +49,8 @@ export const Login = () => {
             ).then(res => {
                 setIsLoading(false);
                 if (res.ok) {
-
+                    console.log(res.body) ;
+                    return res.body.getReader();
                 } else {
                     return res.json().then(data => {
                         let errorMessage = "Authentication failed";
@@ -58,15 +59,14 @@ export const Login = () => {
                         //  }
                         throw new Error(errorMessage);
                     })
-                        .then((data) => {
-                            authCtx.login(data.idToken)
-                        })
-                        .catch((err) => {
-                            alert(err.message)
-                        });
                 }
-            });
-        };
+            }).then((data) => {
+                authCtx.login(data);
+                navigate("/");
+            }).catch(err => {
+                alert(err.message);
+            })
+        }
     }
     return(
         <form onSubmit={submitHandler}>
@@ -85,7 +85,7 @@ export const Login = () => {
                     className={classes.toggle}
                     onClick={switchAuthModeHandler}
                 >
-                    <Link to="/signup">
+                    <Link to="/signup" className={classes.toggle}>
                         Create new account
                     </Link>
                 </button>
