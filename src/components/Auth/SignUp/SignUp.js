@@ -1,9 +1,10 @@
 import {useState, useRef, useContext} from 'react';
 
-import classes from './AuthForm.module.css';
+import classes from '../AuthForm.module.css'
 import Loader from "../../UI/Loader/Loader";
 import AuthContext from "../../../store/auth-context";
 import {Link} from "react-router-dom";
+
 
 export const SignUp = () => {
 
@@ -70,7 +71,8 @@ export const SignUp = () => {
     }
     return(
         <form onSubmit={submitHandler}>
-            <div>
+            <h1>Sign Up</h1>
+            <div className={classes.control}>
                 <label htmlFor='username'>Your Username </label>
                 <input type='username' id='username' required ref={usernameInputRef} />
                 <label htmlFor='email'>Your Email</label>
@@ -89,8 +91,8 @@ export const SignUp = () => {
                     onClick={switchAuthModeHandler}
                 >
                     <Link to="/login">
-                        Create new account
-                     </Link>
+                        Login with existing account
+                    </Link>
                 </button>
             </div>
         </form>
