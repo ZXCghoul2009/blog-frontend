@@ -36,7 +36,7 @@ export const SignUp = () => {
         {
             isLogin &&
             fetch(
-                'http://localhost:8080/api/auth/signup',
+                'http://localhost:8081/api/auth/signup',
                 {
                     method: 'POST',
                     body: JSON.stringify({

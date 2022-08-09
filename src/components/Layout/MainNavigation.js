@@ -17,6 +17,9 @@ const MainNavigation = () => {
       <Link to='/'>
         <div className={classes.logo}>10Iq</div>
       </Link>
+      <Link to='/create-post'>
+        <button>Create Post</button>
+      </Link>
       <nav>
         <ul>
             {!isLoggedIn &&

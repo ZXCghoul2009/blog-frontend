@@ -34,7 +34,7 @@ export const Login = () => {
         {
             isLogin &&
             fetch(
-                'http://localhost:8080/api/auth/login',
+                'http://localhost:8081/api/auth/login',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -49,7 +49,6 @@ export const Login = () => {
             ).then(res => {
                 setIsLoading(false);
                 if (res.ok) {
-                    console.log(res.body) ;
                     return res.body.getReader();
                 } else {
                     return res.json().then(data => {

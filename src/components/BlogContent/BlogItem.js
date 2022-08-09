@@ -1,34 +1,34 @@
 import './BlogItem.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
-
+import {useNavigate} from "react-router-dom";
 
 export const BlogItem = ({
     title,
     description,
     likeCount,
     duration,
-    key
+    id
 
 }) => {
 
+    const router = useNavigate()
+
     const [liked, setLiked] = useState(false)
-    const [vote, setVote] = useState('')
+    const [vote, setVote] = useState('UPVOTE')
     const likePosts = () => {
-
-        const postId = {key};
-
+        console.log(vote)
         setLiked((v)=> !v)
-        if (liked){
+        if (!liked){
             setVote('UPVOTE')
         } else {
             setVote('DOWNVOTE')
         }
-        fetch('http://localhost:8080/api/votes/',
+        fetch('http://localhost:8081/api/votes/',
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    postId: postId,
+
                     voteType: vote
                 }),
                 headers: {
@@ -57,7 +57,6 @@ export const BlogItem = ({
         }
 
 
-
     const likedFill = liked ? 'crimson' : 'grey';
 
     return (
@@ -70,6 +69,11 @@ export const BlogItem = ({
                     <FavoriteIcon style={{fill:likedFill}}/>
                 </button>
                 {likeCount}
+            </div>
+            <div>
+                <button onClick={() => router(`post/${id}`)}>
+                    Read more
+                </button>
             </div>
         </div>
     )
