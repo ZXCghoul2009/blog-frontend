@@ -1,0 +1,23 @@
+image {
+    width: 100%;
+}
+.tags {
+    margin: 15px 0;
+}
+.editor {
+    margin: 30px -30px;
+}
+.editor :global .cm-s-easymde {
+    border: 0;
+    font-size: 22px;
+}
+.editor :global .editor-toolbar {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+.buttons {
+    display: flex;
+}
+.buttons button {
+    margin-right: 15px;
+}

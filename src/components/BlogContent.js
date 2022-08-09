@@ -23,9 +23,12 @@ export const BlogContent = () =>  {
         const blogPosts = posts.map((item) => {
             return (
                 <BlogItem
-                    key={item.id}
-                    title={item.title}
-                    description={item.body}
+                    id={item.id}
+                    title={item.postName}
+                    description={item.description}
+                    likeCount = {item.voteCount}
+                    liked = {item.upVote}
+                    duration = {item.duration}
                 />
             )
         })
